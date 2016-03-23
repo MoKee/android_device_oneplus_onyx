@@ -29,7 +29,6 @@ persist.data.netmgrd.qos.enable=true
 ro.data.large_tcp_window_size=true
 persist.radio.multisim.config=dsds
 ro.telephony.ril.config=simactivation
-ro.telephony.ril_class=onyxRIL
 
 # Audio
 mm.enable.smoothstreaming=true
