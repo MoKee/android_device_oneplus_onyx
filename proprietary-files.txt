@@ -265,7 +265,6 @@ vendor/lib/libxml.so
 bin/sensors.qcom
 etc/firmware/tp/15055/15055_FW_S3508_Tpk.img
 etc/firmware/tp/15055/15055_Limit_Tpk.img
-vendor/lib/hw/sensors.msm8974.so
 vendor/lib/libAKM8963.so
 vendor/lib/libasn1cper.so
 vendor/lib/libasn1crt.so
