@@ -50,7 +50,7 @@ TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 
 # ANT+
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+BOARD_ANT_WIRELESS_DEVICE := "qualcomm-uart"
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := onyx,OnePlus,E1003,ONE
