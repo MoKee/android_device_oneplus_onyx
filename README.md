@@ -1,5 +1,5 @@
-
 Unified Device Tree For OnePlus X
+==================================
 
 Basic   | Spec Sheet
 -------:|:-------------------------
