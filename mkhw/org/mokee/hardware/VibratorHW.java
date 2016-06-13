@@ -16,16 +16,14 @@
 
 package org.mokee.hardware;
 
-import java.io.File;
-
-import org.mokee.hardware.util.FileUtils;
+import org.mokee.internal.util.FileUtils;
 
 public class VibratorHW {
 
     private static String AMP_PATH = "/sys/devices/virtual/timed_output/vibrator/vtg_level";
 
     public static boolean isSupported() {
-        return new File(AMP_PATH).exists();
+        return FileUtils.isFileWritable(AMP_PATH);
     }
 
     public static int getMaxIntensity()  {
