@@ -267,12 +267,12 @@
 
     <!-- Default screen brightness setting.
          Must be in the range specified by minimum and maximum. -->
-    <integer name="config_screenBrightnessSettingDefault">102</integer>
+    <integer name="config_screenBrightnessSettingDefault">79</integer>
 
     <!-- Screen brightness used to dim the screen when the user activity
          timeout expires.  May be less than the minimum allowed brightness setting
          that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">10</integer>
+    <integer name="config_screenBrightnessDim">2</integer>
 
     <integer name="config_buttonBrightnessSettingDefault">0</integer>
 
