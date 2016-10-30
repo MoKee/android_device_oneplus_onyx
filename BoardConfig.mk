@@ -19,6 +19,9 @@
 
 PLATFORM_PATH := device/oneplus/onyx
 
+# Assertions
+TARGET_BOARD_INFO_FILE ?= $(PLATFORM_PATH)/board-info.txt
+
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8974
 TARGET_NO_BOOTLOADER := true
@@ -41,9 +44,9 @@ TARGET_CPU_VARIANT := krait
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=23 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_SEPARATED_DT := true
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-TARGET_CUSTOM_DTBTOOL := dtbToolonyx
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+TARGET_KERNEL_APPEND_DTB := true
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := mk_onyx_defconfig
 TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
@@ -152,6 +155,7 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
 # RIL
+BOARD_PROVIDES_LIBRIL := true
 TARGET_RIL_VARIANT := caf
 
 # RPC
