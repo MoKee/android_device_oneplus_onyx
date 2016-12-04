@@ -378,6 +378,7 @@ on property:hw.fm.init=0
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
+    group system
 
 service rfs_access /system/bin/rfs_access
     class core
@@ -388,7 +389,7 @@ service rfs_access /system/bin/rfs_access
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps qcom_diag
+    group radio audio bluetooth gps diag qcom_diag
 
 service netmgrd /system/bin/netmgrd
     class main
@@ -412,14 +413,6 @@ on property:persist.env.fastdorm.enabled=true
 on property:sys.boot_completed=1
     # Temp hack to fix torch not being registered on boot
     restart media
-
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
-
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
@@ -489,7 +482,7 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
 service mpdecision /system/bin/mpdecision --avg_comp
    class main
    user root
-   group system
+   group root readproc
    disabled
 
 service thermal-engine /system/vendor/bin/thermal-engine
@@ -506,28 +499,28 @@ service time_daemon /system/bin/time_daemon
     group root
 
 on property:vold.decrypt=trigger_restart_framework
-    start config_bdaddr
-    start config_bluetooth
+    start config_bt_addr
     start wcnss-service
 
-service config_bdaddr /system/bin/btnvtool -O
+service config_bt_addr /system/bin/btnvtool -O
+    class core
+    user bluetooth
+    group bluetooth radio
+    oneshot
+
+service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     class late_start
     user bluetooth
-    group bluetooth net_bt_admin qcom_diag radio
-    oneshot
-
-service config_bluetooth /system/bin/sh /init.qcom.bt.sh "onboot"
-    class core
-    user root
-    group bluetooth net_bt_admin qcom_diag radio
-    oneshot
-
-service hciattach /system/bin/sh /init.qcom.bt.sh
-    class late_start
-    user root
-    group bluetooth net_bt_admin qcom_diag radio
+    group bluetooth net_bt_admin qcom_diag diag radio
+    seclabel u:r:bluetooth_loader:s0
     disabled
     oneshot
+
+on property:bluetooth.hciattach=true
+    start hciattach
+
+on property:bluetooth.hciattach=false
+    setprop bluetooth.status off
 
 service cnd /system/bin/cnd
     class late_start
@@ -536,12 +529,6 @@ service cnd /system/bin/cnd
 service dpmd /system/bin/dpmd
     class late_start
     socket dpmd stream 660 root system
-
-on property:bluetooth.hciattach=true
-    start hciattach
-
-on property:bluetooth.hciattach=false
-    setprop bluetooth.status off
 
 service adsprpcd /system/bin/adsprpcd
    class main
@@ -554,17 +541,10 @@ service audiod /system/bin/audiod
    group system
 
 service wcnss-service /system/bin/wcnss_service
-    class late_start
+    class main
     user system
-    group system wifi qcom_diag radio
+    group system wifi qcom_diag diag radio
     oneshot
-
-service ppd /system/bin/mm-pp-daemon
-    class late_start
-    disabled
-    user system
-    socket pps stream 0660 system system
-    group system graphics
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd
@@ -576,14 +556,14 @@ on property:init.svc.surfaceflinger=running
 service diag_mdlog_start /system/bin/diag_mdlog
     class late_start
     user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
+    group system qcom_diag diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
 
 service diag_mdlog_stop /system/bin/diag_mdlog -k
     class late_start
     user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
+    group system qcom_diag diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
 
@@ -600,19 +580,6 @@ service ssr_diag /system/bin/ssr_diag
     disabled
     user system
     group system
-
-service pfm /system/bin/pfm
-    class late_start
-    user system
-    group system drmrpc mount
-
-service ril-daemon /system/bin/rild
-    class main
-    socket rild stream 660 root radio
-    socket sap_uim_socket1 stream 660 bluetooth bluetooth
-    socket rild-debug stream 660 radio system
-    user root
-    group radio cache inet misc audio log qcom_diag
 
 service ril-daemon2 /system/bin/rild -c 2
     class late_start
