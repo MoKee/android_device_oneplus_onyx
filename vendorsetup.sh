@@ -1,3 +1,0 @@
-add_lunch_combo mk_onyx-user
-add_lunch_combo mk_onyx-userdebug
-add_lunch_combo mk_onyx-eng
