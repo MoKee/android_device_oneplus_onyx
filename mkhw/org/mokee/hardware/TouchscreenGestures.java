@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.cyanogenmod.hardware;
+package org.mokee.hardware;
 
-import org.cyanogenmod.internal.util.FileUtils;
+import org.mokee.internal.util.FileUtils;
 
-import cyanogenmod.hardware.TouchscreenGesture;
+import mokee.hardware.TouchscreenGesture;
 
 /**
  * Touchscreen gestures API
